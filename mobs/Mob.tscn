@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://mobs/sprites/enemySwimming_1.png" type="Texture" id=5]
+[ext_resource path="res://mobs/sprites/enemySwimming_2.png" type="Texture" id=6]
+[ext_resource path="res://mobs/Mob.gd" type="Script" id=7]
+[ext_resource path="res://mobs/mob_death.wav" type="AudioStream" id=9]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 23.9999
+height = 16.0002
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 10.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 180.0
+angle_random = 1.0
+scale = 2.0
+scale_random = 0.1
+scale_curve = SubResource( 4 )
+color = Color( 1, 0, 0, 1 )
+
+[node name="Mob" type="RigidBody2D" groups=[
+"mobs",
+]]
+collision_layer = 4
+collision_mask = 3
+mass = 65535.0
+gravity_scale = 0.0
+contacts_reported = 1
+contact_monitor = true
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_group_": true
+}
+min_speed = 150
+max_speed = 250
+min_scale = 0.8
+max_scale = 1.2
+powerup_chance = 0.2
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+scale = Vector2( 0.5, 0.5 )
+frames = SubResource( 1 )
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+rotation = 1.5708
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+
+[node name="DeathParticles" type="Particles2D" parent="."]
+emitting = false
+amount = 50
+lifetime = 10.0
+one_shot = true
+speed_scale = 5.0
+explosiveness = 1.0
+process_material = SubResource( 5 )
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

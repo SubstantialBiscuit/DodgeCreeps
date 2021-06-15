@@ -1,0 +1,112 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=1]
+[ext_resource path="res://main/scripts/Main.gd" type="Script" id=2]
+[ext_resource path="res://main/WeightedArray.tscn" type="PackedScene" id=3]
+[ext_resource path="res://main/HUD.tscn" type="PackedScene" id=4]
+[ext_resource path="res://main/audio/House In a Forest Loop.ogg" type="AudioStream" id=5]
+[ext_resource path="res://main/audio/gameover.wav" type="AudioStream" id=6]
+[ext_resource path="res://mobs/RockMob.tscn" type="PackedScene" id=7]
+[ext_resource path="res://mobs/Mob.tscn" type="PackedScene" id=8]
+[ext_resource path="res://mobs/JerkMob.tscn" type="PackedScene" id=9]
+[ext_resource path="res://mobs/StayMob.tscn" type="PackedScene" id=10]
+[ext_resource path="res://main/art/stars.png" type="Texture" id=11]
+[ext_resource path="res://player/powerups/PowerupInvincible.tscn" type="PackedScene" id=12]
+[ext_resource path="res://player/powerups/PowerupShootSpeed.tscn" type="PackedScene" id=13]
+[ext_resource path="res://player/powerups/PowerupDrillBullet.tscn" type="PackedScene" id=14]
+[ext_resource path="res://player/powerups/PowerupTeleport.tscn" type="PackedScene" id=15]
+
+[sub_resource type="Gradient" id=1]
+colors = PoolColorArray( 1, 0.956863, 0, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 2
+emission_box_extents = Vector3( 640, 360, 1 )
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 180.0
+angle_random = 1.0
+scale = 0.05
+scale_random = 0.05
+color_ramp = SubResource( 2 )
+
+[sub_resource type="Curve2D" id=4]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1280, 0, 0, 0, 0, 0, 1280, 720, 0, 0, 0, 0, 0, 720, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="Main" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Background" type="ColorRect" parent="."]
+margin_right = 1280.0
+margin_bottom = 720.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Stars" type="Particles2D" parent="."]
+position = Vector2( 640, 360 )
+amount = 20
+lifetime = 2.0
+preprocess = 10.0
+randomness = 0.8
+visibility_rect = Rect2( -640, -360, 1280, 720 )
+process_material = SubResource( 3 )
+texture = ExtResource( 11 )
+
+[node name="Player" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="ScoreTimer" type="Timer" parent="."]
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="MenuTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="StartPosition" type="Position2D" parent="."]
+position = Vector2( 640, 450 )
+
+[node name="MobPath" type="Path2D" parent="."]
+curve = SubResource( 4 )
+
+[node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath"]
+
+[node name="HUD" parent="." instance=ExtResource( 4 )]
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="DeathSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+
+[node name="MobsArray" parent="." instance=ExtResource( 3 )]
+scenes = [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 7 ) ]
+weights = [ 3, 2, 2, 3 ]
+
+[node name="PowerupsArray" parent="." instance=ExtResource( 3 )]
+scenes = [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ) ]
+weights = [ 2, 4, 4, 3 ]
+
+[connection signal="hit" from="Player" to="." method="game_over"]
+[connection signal="new_powerup" from="Player" to="HUD" method="_on_Player_new_powerup"]
+[connection signal="powerup_used" from="Player" to="HUD" method="_on_Player_powerup_used"]
+[connection signal="using_powerup" from="Player" to="HUD" method="_on_Player_using_powerup"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_MobTimer_timeout"]
+[connection signal="timeout" from="ScoreTimer" to="." method="_on_ScoreTimer_timeout"]
+[connection signal="timeout" from="StartTimer" to="." method="_on_StartTimer_timeout"]
+[connection signal="timeout" from="MenuTimer" to="." method="_on_MenuTimer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]

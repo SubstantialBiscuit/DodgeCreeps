@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://mobs/sprites/rock_1.png" type="Texture" id=1]
+[ext_resource path="res://mobs/Mob.tscn" type="PackedScene" id=2]
+[ext_resource path="res://mobs/RockMob.gd" type="Script" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 14.332, -34.822, 22.687, -26.454, 29.41, -13.945, 3.198, 24.329, -12.692, 24.677, -22.666, 14.819, -26.958, -0.143, -24.522, -16.497, -17.215, -25.775, -6.777, -31.226 )
+
+[sub_resource type="Curve" id=3]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=4]
+curve = SubResource( 3 )
+
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 20.0
+flag_disable_z = true
+spread = 180.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+angular_velocity = 100.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+angle = 180.0
+angle_random = 1.0
+scale = 0.2
+scale_curve = SubResource( 4 )
+
+[node name="RockMob" instance=ExtResource( 2 )]
+collision_mask = 7
+mass = 1.0
+script = ExtResource( 3 )
+min_speed = 50
+max_speed = 100
+min_scale = 0.5
+max_scale = 1.5
+
+[node name="AnimatedSprite" parent="." index="0"]
+scale = Vector2( 0.75, 0.75 )
+frames = SubResource( 1 )
+
+[node name="CollisionShape2D" parent="." index="1"]
+rotation = 0.0
+shape = SubResource( 2 )
+
+[node name="DeathParticles" parent="." index="3"]
+amount = 15
+lifetime = 7.0
+speed_scale = 3.0
+process_material = SubResource( 5 )
+texture = ExtResource( 1 )
