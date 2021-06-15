@@ -12,6 +12,8 @@ var velocity : Vector2 = Vector2(0, 0)
 var current_powerup = null
 var invincible = false
 var can_move = true
+onready var eye : Sprite = get_node("Eye")
+
 
 func _ready(): # Called when a ndoe enters the scene tree
 	screen_size = get_viewport_rect().size
@@ -87,6 +89,12 @@ func _process(delta): # Ran every frame
 		position += velocity * delta
 	position.x = clamp(position.x, 0, screen_size.x)
 	position.y = clamp(position.y, 0, screen_size.y)
+	
+	# Follow cursor position with eye
+	var angle = (get_viewport().get_mouse_position() - position).angle()
+	# Adding 90 deg to account for eye pupil being offset in
+	# relation to the Player node
+	eye.rotation = angle - rotation + deg2rad(90)
 
 
 func _on_Player_body_entered(_body):
