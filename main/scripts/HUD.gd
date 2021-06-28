@@ -13,13 +13,15 @@ func show_message(text):
 
 
 # Displays game over screen then start screen
-func show_game_over():
-	show_message("Game Over")
+func show_game_over(new_high: bool):
+	if new_high:
+		show_message("New High Score!")
+	else:
+		show_message("Game Over")
 	# Wait until the MessageTimer has counted down
 	yield($MessageTimer, "timeout")
 	
-	$Message.text = "Dodge the Creeps!"
-	$Message.show()
+	$Title.show()
 	# Make a one-shot timer and to give slight delay 
 	# before showing start button
 	yield(get_tree().create_timer(1), "timeout")
@@ -27,11 +29,14 @@ func show_game_over():
 
 
 func update_score(score):
-	$ScoreLabel.text = str(score)
+	$ScoreLabel.text = "Current: %s" % score
 
+func update_high_score(score):
+	$HighScoreLabel.text = "High Score: %s" % score
 
 func _on_StartButton_pressed():
 	$StartButton.hide()
+	$Title.hide()
 	emit_signal("start_game")
 
 

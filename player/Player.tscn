@@ -88,7 +88,7 @@ Bullet = ExtResource( 6 )
 scale = Vector2( 0.5, 0.5 )
 frames = SubResource( 1 )
 animation = "swim"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Eye" type="Sprite" parent="."]

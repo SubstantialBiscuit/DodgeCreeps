@@ -1,21 +1,55 @@
 extends Node
 
 const MAX_MENU_MOBS : int = 20
-var score
+const DATA_FILE : String = "user://DodgeCreeps.dat"
+var score : int
+var high_score : int
 
 func _ready():
-	randomize()	
+	randomize()
+	load_high_score()
+	$HUD.update_high_score(high_score)
 
 
 func game_over():
 	$ScoreTimer.stop()
 	$MobTimer.stop()
-	$HUD.show_game_over()
+	var new_high = check_high_score()
+	# Game over message and sound
+	$HUD.show_game_over(new_high)
 	$Music.stop()
 	$DeathSound.play()
 	# Spawn mobs in the menu background
 	$MenuTimer.start()
-	
+
+
+func check_high_score():
+	# Check and update high score
+	if score > high_score:
+		high_score = score
+		save_high_score()
+		$HUD.update_high_score(high_score)
+		return true
+	return false
+
+
+func save_high_score():
+	# Saves the high score in DATA_FILE
+	var file = File.new()
+	file.open(DATA_FILE, File.WRITE)
+	file.store_16(high_score)
+	file.close()
+
+
+func load_high_score():
+	# Loads high score from DATA_FILE
+	var file = File.new()
+	if not file.file_exists(DATA_FILE):
+		return 0
+	file.open(DATA_FILE, File.READ)
+	high_score = file.get_16()
+	file.close()
+	return high_score
 
 
 func new_game():
@@ -40,15 +74,16 @@ func _on_StartTimer_timeout():
 func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
-	# Spawn boss mobs every 100s
+	# Spawn extra horde of mobs every 100s
 	if score % 100 == 0:
-		# Get random number for spawning
-		var boss_num = randi() % int(floor(score / 100)) + 1
-		var msg = 'Boss' if boss_num == 1 else '%s bosses' % boss_num
-		$HUD.show_message(msg + ' incoming!')
+		# Get random number for spawning (at least 10)
+		var horde_num = randi() % int(floor(score / 5))
+		if horde_num < 10:
+			horde_num += 10
+		$HUD.show_message('Horde incoming!')
 		# Spawn bosses
 		yield(get_tree().create_timer(0.5), "timeout")
-		spawn_multiple(100) # Temp code until boss is implemented
+		spawn_multiple(horde_num)
 	
 	# As the score increases spawn mobs more often
 	elif score >= 60:
