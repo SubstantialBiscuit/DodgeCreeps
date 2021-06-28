@@ -113,7 +113,7 @@ func start(pos):
 
 func _on_Player_area_entered(area):
 	# Delete existing powerup if there is one
-	if not current_powerup == null:
+	if is_instance_valid(current_powerup):
 		# Don't allow player to collect a new powerup while ones ability is still running
 		if current_powerup.in_progress:
 			return

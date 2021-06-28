@@ -4,9 +4,10 @@ const MAX_MENU_MOBS : int = 20
 const DATA_FILE : String = "user://DodgeCreeps.dat"
 var score : int
 var high_score : int
+var rng = RandomNumberGenerator.new()
 
 func _ready():
-	randomize()
+	rng.randomize()
 	load_high_score()
 	$HUD.update_high_score(high_score)
 
@@ -75,21 +76,21 @@ func _on_ScoreTimer_timeout():
 	score += 1
 	$HUD.update_score(score)
 	# Spawn extra horde of mobs every 100s
-	if score % 100 == 0:
+	if score % 50 == 0:
 		# Get random number for spawning (at least 10)
-		var horde_num = randi() % int(floor(score / 5))
-		if horde_num < 10:
-			horde_num += 10
+		var horde_num = rng.randi_range(10, score / 2)
+		if horde_num < 20:
+			horde_num += 20
 		$HUD.show_message('Horde incoming!')
 		# Spawn bosses
 		yield(get_tree().create_timer(0.5), "timeout")
 		spawn_multiple(horde_num)
 	
 	# As the score increases spawn mobs more often
-	elif score >= 60:
+	elif score >= 35:
 		# Spawn additional mobs every 10 seconds (at least 2)
 		if score % 10 == 0:
-			var spawn_num = randi() % int(ceil(score / 20)) + 2
+			var spawn_num = rng.randi_range(2, score / 10)
 			spawn_multiple(spawn_num)
 			$HUD.show_message(str(spawn_num) + ' more incoming!')
 
