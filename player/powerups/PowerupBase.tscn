@@ -117,6 +117,8 @@ process_material = SubResource( 5 )
 
 [node name="CollectSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -15.0
+bus = "Sound Effects"
 
 [node name="Fade" type="AnimationPlayer" parent="."]
 "anims/fade in" = SubResource( 6 )
@@ -127,5 +129,6 @@ wait_time = 5.0
 
 [node name="PowerupTime" type="Timer" parent="."]
 one_shot = true
+
 [connection signal="timeout" from="StayTime" to="." method="_on_StayTime_timeout"]
 [connection signal="timeout" from="PowerupTime" to="." method="_on_PowerupTime_timeout"]
