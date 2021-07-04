@@ -25,7 +25,21 @@ func show_game_over(new_high: bool):
 	# Make a one-shot timer and to give slight delay 
 	# before showing start button
 	yield(get_tree().create_timer(1), "timeout")
+	show_buttons()
+
+
+func hide_buttons():
+	$StartButton.hide()
+	$HowToButton.hide()
+	$SettingsButton.hide()
+	$AboutButton.hide()
+
+
+func show_buttons():
 	$StartButton.show()
+	$HowToButton.show()
+	$SettingsButton.show()
+	$AboutButton.show()
 
 
 func update_score(score):
@@ -35,7 +49,7 @@ func update_high_score(score):
 	$HighScoreLabel.text = "High Score: %s" % score
 
 func _on_StartButton_pressed():
-	$StartButton.hide()
+	hide_buttons()
 	$Title.hide()
 	emit_signal("start_game")
 
@@ -65,3 +79,15 @@ func _on_Player_using_powerup(power_time):
 	powerup_tween.start()
 	# Flash the powerup symbol
 	$PowerupBackground/PowerupFlash.play("flash")
+
+
+func _on_HowToButton_pressed():
+	get_tree().change_scene("res://main/HowToMenu.tscn")
+
+
+func _on_SettingsButton_pressed():
+	get_tree().change_scene("res://main/SubMenuBase.tscn")
+
+
+func _on_AboutButton_pressed():
+	get_tree().change_scene("res://main/SubMenuBase.tscn")

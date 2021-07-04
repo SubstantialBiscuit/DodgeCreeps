@@ -38,5 +38,6 @@ autostart = true
 [node name="WaitTimer" type="Timer" parent="." index="6"]
 wait_time = 0.2
 one_shot = true
+
 [connection signal="timeout" from="MoveTimer" to="." method="_on_MoveTimer_timeout"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_WaitTimer_timeout"]

@@ -1,0 +1,75 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://main/SubMenuBase.tscn" type="PackedScene" id=1]
+[ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://player/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://mobs/JerkMob.tscn" type="PackedScene" id=4]
+[ext_resource path="res://mobs/StayMob.tscn" type="PackedScene" id=5]
+[ext_resource path="res://mobs/Mob.tscn" type="PackedScene" id=6]
+[ext_resource path="res://mobs/RockMob.tscn" type="PackedScene" id=7]
+[ext_resource path="res://main/HowToMenu.gd" type="Script" id=8]
+[ext_resource path="res://player/powerups/art/powerup_invincibility.png" type="Texture" id=9]
+[ext_resource path="res://player/powerups/art/powerup_shooting_speed.png" type="Texture" id=10]
+[ext_resource path="res://player/powerups/art/powerup_drill_bullets.png" type="Texture" id=11]
+[ext_resource path="res://player/powerups/art/powerup_teleport.png" type="Texture" id=12]
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "default",
+"speed": 2.0
+} ]
+
+[sub_resource type="DynamicFont" id=1]
+size = 29
+font_data = ExtResource( 2 )
+
+[node name="HowToMenu" instance=ExtResource( 1 )]
+script = ExtResource( 8 )
+
+[node name="Powerups" type="AnimatedSprite" parent="." index="1"]
+position = Vector2( 998.46, 468.529 )
+scale = Vector2( 1.5, 1.5 )
+frames = SubResource( 2 )
+
+[node name="JerkMob" parent="." index="2" instance=ExtResource( 4 )]
+position = Vector2( 974.506, 288.065 )
+rotation = -2.97928
+
+[node name="RockMob" parent="." index="3" instance=ExtResource( 7 )]
+position = Vector2( 300.209, 293.336 )
+rotation = 0.71733
+
+[node name="Mob" parent="." index="4" instance=ExtResource( 6 )]
+position = Vector2( 1183.09, 368.081 )
+rotation = 2.33351
+
+[node name="StayMob" parent="." index="5" instance=ExtResource( 5 )]
+position = Vector2( 261.726, 461.29 )
+rotation = 0.143117
+
+[node name="Player" parent="." index="6" instance=ExtResource( 3 )]
+position = Vector2( 216.005, 219.076 )
+
+[node name="MenuTitle" parent="." index="8"]
+text = "How to Play"
+
+[node name="HowToText" type="Label" parent="." index="9"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_top = 200.0
+margin_right = -50.0
+margin_bottom = -200.0
+custom_fonts/font = SubResource( 1 )
+text = "Use WASD, arrow keys or D-pad to move.
+Dodge the enemies and astroids.
+Aim with mouse and shoot with left mouse button.
+Kill enemies to find different powerups,
+Use powerups with right mouse button."
+align = 1
+valign = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}

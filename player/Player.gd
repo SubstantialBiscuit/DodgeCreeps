@@ -15,7 +15,7 @@ var can_move = true
 onready var eye : Sprite = get_node("Eye")
 
 
-func _ready(): # Called when a ndoe enters the scene tree
+func _ready(): # Called when a node enters the scene tree
 	screen_size = get_viewport_rect().size
 	hide() # Hide player when game starts
 
