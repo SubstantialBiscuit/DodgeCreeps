@@ -107,7 +107,7 @@ __meta__ = {
 [node name="ShootSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = -5.0
-bus = "Sound Effects"
+bus = "SoundEffects"
 
 [node name="ShotTimer" type="Timer" parent="."]
 wait_time = 0.5

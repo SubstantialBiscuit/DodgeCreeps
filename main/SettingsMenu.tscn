@@ -24,7 +24,7 @@ bus = "Music"
 [node name="SoundEffects" type="AudioStreamPlayer" parent="." index="4"]
 stream = ExtResource( 6 )
 volume_db = -15.0
-bus = "Sound Effects"
+bus = "SoundEffects"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." index="5"]
 anchor_right = 1.0
@@ -102,7 +102,7 @@ margin_right = 1080.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
-audio_bus_name = "Sound Effects"
+audio_bus_name = "SoundEffects"
 
 [connection signal="focus_entered" from="VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="play_music"]
 [connection signal="focus_exited" from="VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="stop_music"]
