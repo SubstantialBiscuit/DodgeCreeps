@@ -76,6 +76,7 @@ tracks/0/keys = {
 }
 
 [node name="Player" type="Area2D"]
+z_index = 5
 gravity = 0.0
 collision_layer = 9
 script = ExtResource( 5 )
