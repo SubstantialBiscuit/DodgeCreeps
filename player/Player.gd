@@ -116,8 +116,13 @@ func _on_Player_area_entered(area):
 	if is_instance_valid(current_powerup):
 		# Don't allow player to collect a new powerup while ones ability is still running
 		if current_powerup.in_progress:
-			return
-		clear_powerup()
+			# Wait until powerup finishes and check if it's still within the player
+			yield(current_powerup, "ability_finished")
+			if not overlaps_area(area):
+				# Leave function if no longer overlapping
+				return
+		else:
+			clear_powerup()
 	current_powerup = area
 	current_powerup.collect()
 	emit_signal("new_powerup")	
