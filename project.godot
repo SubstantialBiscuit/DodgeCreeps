@@ -25,6 +25,10 @@ config/description="Built from tutorial in Godot docs here: https://docs.godoten
 run/main_scene="res://main/Main.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Settings="*res://main/Settings.tscn"
+
 [debug]
 
 settings/stdout/print_fps=true
