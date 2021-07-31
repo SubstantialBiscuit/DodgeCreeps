@@ -5,6 +5,7 @@ signal start_game
 onready var powerup_tween = $PowerupBackground/Tween
 onready var player = get_tree().get_root().get_node("Main/Player")
 
+
 # Display a temporary message
 func show_message(text):
 	$Message.text = text
@@ -29,17 +30,11 @@ func show_game_over(new_high: bool):
 
 
 func hide_buttons():
-	$StartButton.hide()
-	$HowToButton.hide()
-	$SettingsButton.hide()
-	$AboutButton.hide()
+	$VBoxContainer.hide()
 
 
 func show_buttons():
-	$StartButton.show()
-	$HowToButton.show()
-	$SettingsButton.show()
-	$AboutButton.show()
+	$VBoxContainer.show()
 
 
 func update_score(score):
@@ -91,3 +86,7 @@ func _on_SettingsButton_pressed():
 
 func _on_AboutButton_pressed():
 	get_tree().change_scene("res://main/SubMenuBase.tscn")
+
+
+func _on_ExitButton_pressed():
+	get_tree().quit()
