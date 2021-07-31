@@ -14,6 +14,9 @@ font_data = ExtResource( 3 )
 [node name="SettingsMenu" instance=ExtResource( 1 )]
 script = ExtResource( 5 )
 
+[node name="Background" parent="." index="0"]
+position = Vector2( 0, -1.49835 )
+
 [node name="MenuTitle" parent="." index="2"]
 text = "Settings"
 
@@ -35,84 +38,145 @@ margin_right = -100.0
 margin_bottom = -200.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_constants/separation = 10
+custom_constants/separation = 20
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="MasterVolumeContainer" type="HBoxContainer" parent="VBoxContainer" index="0"]
+[node name="VolumeLabel" type="Label" parent="VBoxContainer" index="0"]
 margin_right = 1080.0
 margin_bottom = 37.0
-size_flags_horizontal = 3
-custom_constants/separation = 10
+custom_fonts/font = SubResource( 1 )
+text = "Volume Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="MasterVolumeLabel" type="Label" parent="VBoxContainer/MasterVolumeContainer" index="0"]
-margin_right = 249.0
+[node name="VolumesGrid" type="GridContainer" parent="VBoxContainer" index="1"]
+margin_top = 57.0
+margin_right = 1080.0
+margin_bottom = 176.0
+custom_constants/hseparation = 20
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MasterVolumeLabel" type="Label" parent="VBoxContainer/VolumesGrid" index="0"]
+margin_right = 225.0
 margin_bottom = 37.0
 custom_fonts/font = SubResource( 1 )
-text = "Master Volume:"
-align = 2
+text = "Master"
 
-[node name="MasterVolumeSlider" parent="VBoxContainer/MasterVolumeContainer" index="1" instance=ExtResource( 2 )]
-margin_left = 259.0
+[node name="MasterVolumeSlider" parent="VBoxContainer/VolumesGrid" index="1" instance=ExtResource( 2 )]
+margin_left = 245.0
 margin_right = 1080.0
 margin_bottom = 37.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 
-[node name="MusicVolumeContainer" type="HBoxContainer" parent="VBoxContainer" index="1"]
-margin_top = 47.0
-margin_right = 1080.0
-margin_bottom = 84.0
-size_flags_horizontal = 3
-custom_constants/separation = 10
-
-[node name="MusicVolumeLabel" type="Label" parent="VBoxContainer/MusicVolumeContainer" index="0"]
-margin_right = 232.0
-margin_bottom = 37.0
+[node name="MusicVolumeLabel" type="Label" parent="VBoxContainer/VolumesGrid" index="2"]
+margin_top = 41.0
+margin_right = 225.0
+margin_bottom = 78.0
 custom_fonts/font = SubResource( 1 )
-text = "Music Volume:"
-align = 2
+text = "Music"
 
-[node name="MusicVolumeSlider" parent="VBoxContainer/MusicVolumeContainer" index="1" instance=ExtResource( 2 )]
-margin_left = 242.0
+[node name="MusicVolumeSlider" parent="VBoxContainer/VolumesGrid" index="3" instance=ExtResource( 2 )]
+margin_left = 245.0
+margin_top = 41.0
 margin_right = 1080.0
-margin_bottom = 37.0
+margin_bottom = 78.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 audio_bus_name = "Music"
 
-[node name="EffectsVolumeContainer" type="HBoxContainer" parent="VBoxContainer" index="2"]
-margin_top = 94.0
-margin_right = 1080.0
-margin_bottom = 131.0
-size_flags_horizontal = 3
-custom_constants/separation = 10
-
-[node name="EffectsVolumeLabel" type="Label" parent="VBoxContainer/EffectsVolumeContainer" index="0"]
-margin_right = 363.0
-margin_bottom = 37.0
+[node name="EffectsVolumeLabel" type="Label" parent="VBoxContainer/VolumesGrid" index="4"]
+margin_top = 82.0
+margin_right = 225.0
+margin_bottom = 119.0
 custom_fonts/font = SubResource( 1 )
-text = "Sound Effects Volume:"
-align = 2
+text = "Sound Effects"
 
-[node name="EffectsVolumeSlider" parent="VBoxContainer/EffectsVolumeContainer" index="1" instance=ExtResource( 2 )]
-margin_left = 373.0
+[node name="EffectsVolumeSlider" parent="VBoxContainer/VolumesGrid" index="5" instance=ExtResource( 2 )]
+margin_left = 245.0
+margin_top = 82.0
 margin_right = 1080.0
-margin_bottom = 37.0
+margin_bottom = 119.0
 size_flags_horizontal = 3
 size_flags_vertical = 1
 audio_bus_name = "SoundEffects"
 
-[connection signal="focus_entered" from="VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="play_music"]
-[connection signal="focus_exited" from="VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="stop_music"]
-[connection signal="mouse_entered" from="VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="play_music"]
-[connection signal="mouse_exited" from="VBoxContainer/MasterVolumeContainer/MasterVolumeSlider" to="." method="stop_music"]
-[connection signal="focus_entered" from="VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="play_music"]
-[connection signal="focus_exited" from="VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="stop_music"]
-[connection signal="mouse_entered" from="VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="play_music"]
-[connection signal="mouse_exited" from="VBoxContainer/MusicVolumeContainer/MusicVolumeSlider" to="." method="stop_music"]
-[connection signal="focus_entered" from="VBoxContainer/EffectsVolumeContainer/EffectsVolumeSlider" to="." method="play_sounds"]
-[connection signal="focus_exited" from="VBoxContainer/EffectsVolumeContainer/EffectsVolumeSlider" to="." method="stop_sounds"]
-[connection signal="mouse_entered" from="VBoxContainer/EffectsVolumeContainer/EffectsVolumeSlider" to="." method="play_sounds"]
-[connection signal="mouse_exited" from="VBoxContainer/EffectsVolumeContainer/EffectsVolumeSlider" to="." method="stop_sounds"]
+[node name="DisplayLabel" type="Label" parent="VBoxContainer" index="2"]
+margin_top = 196.0
+margin_right = 1080.0
+margin_bottom = 233.0
+custom_fonts/font = SubResource( 1 )
+text = "Display Settings"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DisplayGrid" type="GridContainer" parent="VBoxContainer" index="3"]
+margin_top = 253.0
+margin_right = 1080.0
+margin_bottom = 345.0
+custom_constants/hseparation = 20
+columns = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FullscreenLabel" type="Label" parent="VBoxContainer/DisplayGrid" index="0"]
+margin_top = 4.0
+margin_right = 168.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 1 )
+text = "Fullscreen"
+
+[node name="FullscreenButton" type="CheckButton" parent="VBoxContainer/DisplayGrid" index="1"]
+margin_left = 188.0
+margin_right = 264.0
+margin_bottom = 45.0
+size_flags_horizontal = 0
+custom_fonts/font = SubResource( 1 )
+shortcut_in_tooltip = false
+flat = true
+
+[node name="ResolutionLabel" type="Label" parent="VBoxContainer/DisplayGrid" index="2"]
+margin_top = 52.0
+margin_right = 168.0
+margin_bottom = 89.0
+custom_fonts/font = SubResource( 1 )
+text = "Resolution"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ResolutionButton" type="OptionButton" parent="VBoxContainer/DisplayGrid" index="3"]
+margin_left = 188.0
+margin_top = 49.0
+margin_right = 1080.0
+margin_bottom = 92.0
+size_flags_horizontal = 7
+custom_fonts/font = SubResource( 1 )
+shortcut_in_tooltip = false
+text = "1280x720"
+flat = true
+align = 1
+selected = 3
+
+[connection signal="focus_entered" from="VBoxContainer/VolumesGrid/MasterVolumeSlider" to="." method="play_music"]
+[connection signal="focus_exited" from="VBoxContainer/VolumesGrid/MasterVolumeSlider" to="." method="stop_music"]
+[connection signal="mouse_entered" from="VBoxContainer/VolumesGrid/MasterVolumeSlider" to="." method="play_music"]
+[connection signal="mouse_exited" from="VBoxContainer/VolumesGrid/MasterVolumeSlider" to="." method="stop_music"]
+[connection signal="focus_entered" from="VBoxContainer/VolumesGrid/MusicVolumeSlider" to="." method="play_music"]
+[connection signal="focus_exited" from="VBoxContainer/VolumesGrid/MusicVolumeSlider" to="." method="stop_music"]
+[connection signal="mouse_entered" from="VBoxContainer/VolumesGrid/MusicVolumeSlider" to="." method="play_music"]
+[connection signal="mouse_exited" from="VBoxContainer/VolumesGrid/MusicVolumeSlider" to="." method="stop_music"]
+[connection signal="focus_entered" from="VBoxContainer/VolumesGrid/EffectsVolumeSlider" to="." method="play_sounds"]
+[connection signal="focus_exited" from="VBoxContainer/VolumesGrid/EffectsVolumeSlider" to="." method="stop_sounds"]
+[connection signal="mouse_entered" from="VBoxContainer/VolumesGrid/EffectsVolumeSlider" to="." method="play_sounds"]
+[connection signal="mouse_exited" from="VBoxContainer/VolumesGrid/EffectsVolumeSlider" to="." method="stop_sounds"]
+[connection signal="toggled" from="VBoxContainer/DisplayGrid/FullscreenButton" to="." method="_on_FullscreenButton_toggled"]
+[connection signal="item_selected" from="VBoxContainer/DisplayGrid/ResolutionButton" to="." method="_on_ResolutionButton_item_selected"]
