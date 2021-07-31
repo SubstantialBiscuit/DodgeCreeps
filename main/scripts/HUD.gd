@@ -85,7 +85,7 @@ func _on_SettingsButton_pressed():
 
 
 func _on_AboutButton_pressed():
-	get_tree().change_scene("res://main/SubMenuBase.tscn")
+	get_tree().change_scene("res://main/AboutMenu.tscn")
 
 
 func _on_ExitButton_pressed():
