@@ -7,13 +7,13 @@
 [ext_resource path="res://mobs/StayMob.tscn" type="PackedScene" id=5]
 [ext_resource path="res://mobs/Mob.tscn" type="PackedScene" id=6]
 [ext_resource path="res://mobs/RockMob.tscn" type="PackedScene" id=7]
-[ext_resource path="res://main/HowToMenu.gd" type="Script" id=8]
+[ext_resource path="res://main/scripts/HowToMenu.gd" type="Script" id=8]
 [ext_resource path="res://player/powerups/art/powerup_invincibility.png" type="Texture" id=9]
 [ext_resource path="res://player/powerups/art/powerup_shooting_speed.png" type="Texture" id=10]
 [ext_resource path="res://player/powerups/art/powerup_drill_bullets.png" type="Texture" id=11]
 [ext_resource path="res://player/powerups/art/powerup_teleport.png" type="Texture" id=12]
 
-[sub_resource type="SpriteFrames" id=2]
+[sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 11 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 12 ) ],
 "loop": true,
@@ -21,7 +21,7 @@ animations = [ {
 "speed": 2.0
 } ]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=2]
 size = 29
 font_data = ExtResource( 2 )
 
@@ -31,7 +31,7 @@ script = ExtResource( 8 )
 [node name="Powerups" type="AnimatedSprite" parent="." index="1"]
 position = Vector2( 998.46, 468.529 )
 scale = Vector2( 1.5, 1.5 )
-frames = SubResource( 2 )
+frames = SubResource( 1 )
 
 [node name="JerkMob" parent="." index="2" instance=ExtResource( 4 )]
 position = Vector2( 974.506, 288.065 )
@@ -62,7 +62,7 @@ margin_left = 50.0
 margin_top = 200.0
 margin_right = -50.0
 margin_bottom = -200.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "Use WASD, arrow keys or D-pad to move.
 Dodge the enemies and astroids.
 Aim with mouse and shoot with left mouse button.
