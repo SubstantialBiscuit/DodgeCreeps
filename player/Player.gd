@@ -125,4 +125,5 @@ func _on_Player_area_entered(area):
 			clear_powerup()
 	current_powerup = area
 	current_powerup.collect()
-	emit_signal("new_powerup")	
+	emit_signal("new_powerup")
+

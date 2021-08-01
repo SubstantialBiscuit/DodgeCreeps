@@ -10,9 +10,11 @@ func _ready():
 	rng.randomize()
 	load_high_score()
 	$HUD.update_high_score(high_score)
+	set_process_input(false)
 
 
 func game_over():
+	set_process_input(false)
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	var new_high = check_high_score()
@@ -55,6 +57,7 @@ func load_high_score():
 
 func new_game():
 	# Clear any mobs left from previous game and stop MenuTimer
+	set_process_input(true)
 	$MenuTimer.stop()
 	get_tree().call_group("mobs", "queue_free")
 	get_tree().call_group("powerups", "queue_free")
@@ -137,3 +140,27 @@ func spawn_powerup(position : Vector2):
 	var powerup = $PowerupsArray.choose_scene().instance()
 	call_deferred("add_child", powerup)
 	powerup.position = position
+
+
+func debug_inputs(event):
+	if not OS.is_debug_build():
+		return false
+	if event.is_action_pressed("debug_invincible"):
+		$Player.invincible = !$Player.invincible
+		$HUD.show_message("Debug: Invincible = %s" % $Player.invincible)
+		if $Player.invincible:
+			$Player.get_node("AnimationPlayer").play("flash")
+		else:
+			$Player.get_node("AnimationPlayer").stop()
+			$Player.get_node("AnimationPlayer").seek(0, true)
+	elif event.is_action_pressed("debug_spawn_powerup"):
+		$HUD.show_message("Debug: Spawning random powerup")
+		spawn_powerup($Player.get_global_mouse_position())
+	else:
+		return false
+	return true
+
+
+func _input(event):
+	if debug_inputs(event):
+		get_tree().set_input_as_handled()

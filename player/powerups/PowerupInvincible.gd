@@ -12,5 +12,6 @@ func ability():
 func stop_ability():
 	player.invincible = false
 	player.get_node("AnimationPlayer").stop()
+	player.get_node("AnimationPlayer").seek(0, true)
 	in_progress = false
 	emit_signal("ability_finished")
