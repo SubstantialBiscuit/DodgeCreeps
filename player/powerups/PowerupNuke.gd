@@ -8,4 +8,4 @@ func _ready():
 
 func activate_position():
 	# Start nuke at centre of window
-	return main.get_viewport().size / 2
+	return get_viewport_rect().size / 2
