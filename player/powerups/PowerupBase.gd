@@ -21,12 +21,17 @@ func _ready():
 	$StayTime.start()
 
 
-func _physics_process(delta):
+func spiral_powerup(delta):
 	# Spiral outwards
 	elapsed_time += delta
 	var angle = lerp_angle(PI, 0, elapsed_time)
 	var speed = lerp(0, 10, elapsed_time)
 	position += start_vel.rotated(angle) * speed * delta
+
+
+func _physics_process(delta):
+	if not collected:
+		spiral_powerup(delta)
 
 
 func _on_StayTime_timeout():

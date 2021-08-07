@@ -3,7 +3,7 @@
 [ext_resource path="res://player/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://player/sprites/bullet.png" type="Texture" id=2]
 
-[sub_resource type="CapsuleShape2D" id=7]
+[sub_resource type="CapsuleShape2D" id=1]
 radius = 7.72761
 height = 7.14934
 
@@ -52,7 +52,7 @@ texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = 1.5708
-shape = SubResource( 7 )
+shape = SubResource( 1 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
 scale = Vector2( 0.5, 0.5 )

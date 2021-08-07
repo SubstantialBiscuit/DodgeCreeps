@@ -5,6 +5,8 @@ const DATA_FILE : String = "user://DodgeCreeps.dat"
 var score : int
 var high_score : int
 var rng = RandomNumberGenerator.new()
+var Explosion = preload("res://player/powerups/Explosion.tscn")
+
 
 func _ready():
 	rng.randomize()
@@ -142,6 +144,14 @@ func spawn_powerup(position : Vector2):
 	powerup.position = position
 
 
+func explode(position : Vector2):
+	$HUD.show_message("Debug: Explosion")
+	var curr_explosion = Explosion.instance()
+	add_child(curr_explosion)
+	curr_explosion.position = position
+	curr_explosion.max_radius = rand_range(10, 1000)
+	curr_explosion.start()
+
 func debug_inputs(event):
 	if not OS.is_debug_build():
 		return false
@@ -156,6 +166,8 @@ func debug_inputs(event):
 	elif event.is_action_pressed("debug_spawn_powerup"):
 		$HUD.show_message("Debug: Spawning random powerup")
 		spawn_powerup($Player.get_global_mouse_position())
+	elif event.is_action_pressed("debug_explosion"):
+		explode($Player.get_global_mouse_position())
 	else:
 		return false
 	return true

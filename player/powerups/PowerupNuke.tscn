@@ -1,20 +1,13 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://player/powerups/PowerupNuke.gd" type="Script" id=1]
-[ext_resource path="res://player/powerups/art/powerup_nuke.png" type="Texture" id=2]
-[ext_resource path="res://player/powerups/PowerupBase.tscn" type="PackedScene" id=3]
-[ext_resource path="res://player/powerups/audio/nuke.wav" type="AudioStream" id=4]
+[ext_resource path="res://player/powerups/PowerupBomb.tscn" type="PackedScene" id=2]
+[ext_resource path="res://player/powerups/art/powerup_nuke.png" type="Texture" id=3]
 
-[node name="PowerupNuke" instance=ExtResource( 3 )]
+[node name="PowerupNuke" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+explosion_time = 3.0
+message = "Nuked!"
 
 [node name="Sprite" parent="." index="0"]
-texture = ExtResource( 2 )
-
-[node name="ExplosionSound" type="AudioStreamPlayer" parent="." index="8"]
-stream = ExtResource( 4 )
-volume_db = 10.0
-pitch_scale = 0.5
-bus = "SoundEffects"
-
-[connection signal="finished" from="ExplosionSound" to="." method="_on_ExplosionSound_finished"]
+texture = ExtResource( 3 )

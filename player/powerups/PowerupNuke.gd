@@ -1,13 +1,11 @@
-extends "res://player/powerups/PowerupBase.gd"
+extends "res://player/powerups/PowerupBomb.gd"
 
 
-func ability():
-	in_progress = true
-	hud.show_message('Nuked!')
-	get_tree().call_group("mobs", "kill")
-	$ExplosionSound.play()
+func _ready():
+	# Set explosion radius to viewport size
+	explosion_radius = main.get_viewport().size.length()
 
 
-func _on_ExplosionSound_finished():
-	emit_signal("ability_finished")
-
+func activate_position():
+	# Start nuke at centre of window
+	return main.get_viewport().size / 2
