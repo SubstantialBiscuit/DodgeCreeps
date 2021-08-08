@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://main/SubMenuBase.tscn" type="PackedScene" id=1]
-[ext_resource path="res://fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://main/ui_theme.tres" type="Theme" id=2]
 [ext_resource path="res://main/scripts/AboutMenu.gd" type="Script" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 29
-font_data = ExtResource( 2 )
 
 [node name="AboutMenu" instance=ExtResource( 1 )]
 script = ExtResource( 3 )
@@ -16,12 +12,10 @@ text = "About"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." index="3"]
 anchor_left = 0.2
-anchor_top = 0.4
+anchor_top = 0.35
 anchor_right = 0.8
 anchor_bottom = 0.55
-margin_right = 40.0
-margin_bottom = 180.0
-custom_fonts/normal_font = SubResource( 1 )
+theme = ExtResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]Created by Matt Buckley
 
