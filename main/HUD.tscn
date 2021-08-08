@@ -145,6 +145,7 @@ margin_bottom = 86.0
 rect_pivot_offset = Vector2( 131.99, 70.0316 )
 size_flags_horizontal = 3
 custom_fonts/font = SubResource( 2 )
+shortcut_in_tooltip = false
 shortcut = SubResource( 5 )
 text = "Start"
 __meta__ = {
