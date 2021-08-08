@@ -2,6 +2,8 @@
 
 Twin-stick shooter game made in the Godot engine based on ["Your first game" Godot Tutorial](https://docs.godotengine.org/en/stable/getting_started/step_by_step/your_first_game.html#doc-your-first-game). Art and music taken from the tutorial, some edits have been made.
 
+The game is available online for free at [itch.io](https://substantialbiscuit.itch.io/dodge-the-creeps).
+
 ## Copying
 
 Based on "Your first game" tutorial, source: https://github.com/godotengine/godot-demo-projects/tree/master/2d/dodge_the_creeps.
